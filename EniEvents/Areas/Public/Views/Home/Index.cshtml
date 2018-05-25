@@ -15,11 +15,14 @@
                     @Html.EnumDropDownListFor(model => model.Periods, null, null)
                 </div>
                 <div class="col s12 m6 input-field">
-                    @Html.DropDownListFor(model => model.fooSelectedId, Model.Themas.Select(t => new SelectListItem
-                   {
-                       Text = $"{t.Title}",
-                       Value = t.Id.ToString()
-                   }), "Tous les thèmes")
+                    <select data-val="true" id="fooSelectedId" name="fooSelectedId" tabindex="-1">
+                        <option value="" selected>Tous les thèmes</option>
+                        @foreach (var item in Model.Themas)
+                        {
+                            var imgSrc = "/Content/img/markers/" + item.Id.ToString() + ".png";
+                            <option value="@item.Id" data-icon="@imgSrc">@item.Title</option>
+                        }
+                    </select>
                 </div>
             </div>
             <div class="row search--result">

@@ -8,7 +8,7 @@
     <div class="park">
         <div class="park--symbol">P</div>
         <div class="park--name">@Html.DisplayFor(modelPark => item.Name)</div>
-        <div class="park--free">@Html.DisplayFor(modelPark => item.Free) places libres sur @Html.DisplayFor(modelPark => item.Max)</div>
+        <div class="park--free"><strong>@Html.DisplayFor(modelPark => item.Free)</strong> places libres sur <strong>@Html.DisplayFor(modelPark => item.Max)</strong></div>
         <div class="park--schedule">Horaires: @Html.DisplayFor(modelPark => item.Schedule)</div>
         <div class="park--cost">Tarif estimé : @Html.DisplayFor(modelPark => item.Cost) €</div>
         <div class="park--distance"><strong>Votre trajet :</strong></div>

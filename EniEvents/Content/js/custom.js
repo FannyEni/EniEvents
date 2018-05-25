@@ -25,8 +25,10 @@ function initEventMap() {
     mapCenter = { lat: 48.087266, lng: -1.6777926 };
     eventMap = new google.maps.Map(document.getElementById('eventMap'), {
         zoom: 12,
-        center: mapCenter
+        center: mapCenter,
+        mapTypeId: 'terrain'
     });
+    mapeventMapsetTilt(45);
     deleteMarkers();
 }
 
@@ -138,7 +140,6 @@ var iconBase = '/Content/img/markers/';
             $('#Periods').trigger('change');
 
             var $eventModal = $('#modalEventDetail').modal();
-            console.log($eventModal);
             var showEventDetails = function (event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -163,16 +164,23 @@ var iconBase = '/Content/img/markers/';
                    });
 
                    $('#getParkListBtn').click(function () {
-                       $('#eventParkList').html('<div class="col align-center grey-text text-darken-1"><i class="material-icons rotating" style="vertical-align:middle">hourglass_empty</i> Recherche en cours ... Veuillez patienter.</div>');
                        var startAddress = $('#userAddress').val();
-                       var eventId = $('#eventId').text();
-                       $.ajax({
-                           url: '/Public/Home/ParkList/' + eventId + '/' + startAddress,
-                           dataType: 'text',
-                       })
-                      .done(function (data) {
-                          $('#eventParkList').html(data);
-                      });
+
+                       if (startAddress != "") {
+                           $('#eventParkList').html('<div class="col align-center grey-text text-darken-1"><i class="material-icons rotating" style="vertical-align:middle">hourglass_empty</i> Recherche en cours ... Veuillez patienter.</div>');
+                           var eventId = $('#eventId').text();
+                           $.ajax({
+                               url: '/Public/Home/ParkList/' + eventId + '/' + startAddress,
+                               dataType: 'text',
+                           })
+                          .done(function (data) {
+                              $('#eventParkList').html(data);
+                              $('#modalEventDetail').scrollTop($('#eventParkList').offset().top);
+                          });
+                       }
+                       else {
+                           alert('Veuillez renseigner une adresse de départ !')
+                       }
                    });
                });
             }            

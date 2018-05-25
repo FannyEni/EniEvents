@@ -115,7 +115,7 @@ namespace EniEvents.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Thema th)
+        public ActionResult Delete(Thema th)
         {
             try
             {

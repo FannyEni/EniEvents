@@ -16,14 +16,8 @@ namespace EniEvents
             routes.MapRoute(
                 name: "Welcome",
                 url: "",
-                defaults: new
-                {
-                    controller = "Home",
-                    action = "Index",
-                },
-               namespaces: new string[] { "EniEvents.Controllers" }
+                defaults: new { controller = "Redirect", action = "Index" }
             );
-
 
             routes.MapRoute(
                name: "ParkList",
@@ -57,7 +51,6 @@ namespace EniEvents
                 },
                namespaces: new string[] { "EniEvents.Controllers" }
             );
-
         }
     }
 }
