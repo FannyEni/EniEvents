@@ -63,7 +63,7 @@
             </td>
             <td>
                 @Html.RouteLink("Éditer", new { area = "Admin", controller = "Event", action = "Edit", id = item.Id }, new { @class = "btn green darken-1" })
-                @Html.RouteLink("Supprimer", new { area = "Admin", controller = "Event", action = "Delete", id = item.Id }, new { @class = "btn grey", @style = "margin-left:20px;" })
+                @Html.RouteLink("Supprimer", new { area = "Admin", controller = "Event", action = "Delete", id = item.Id }, new { @class = "btn red", @style = "margin-left:20px;" })
             </td>
         </tr>
     }

@@ -51,13 +51,14 @@ namespace EniEvents.Areas.Admin.Controllers
             {
                 case "title_desc":
                     themas = themas.OrderByDescending(t => t.Title);
+
                     break;
                 default:
                     themas = themas.OrderBy(e => e.Title);
-                    break;
 
+                    break;
             }
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(themas.ToPagedList(pageNumber, pageSize));
         }
@@ -123,7 +124,7 @@ namespace EniEvents.Areas.Admin.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 

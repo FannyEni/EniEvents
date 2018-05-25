@@ -247,7 +247,6 @@
     <Content Include="Content\img\markers\4.png" />
     <Content Include="Content\img\markers\5.png" />
     <Content Include="Content\img\markers\6.png" />
-    <Content Include="Content\img\markers\7.png" />
     <Content Include="Content\js\ai.0.15.0-build58334.js" />
     <Content Include="Content\js\ai.0.15.0-build58334.min.js" />
     <Content Include="Content\js\custom.js" />
@@ -277,7 +276,6 @@
     <Content Include="Content\lib\materialize\js\materialize.min.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\css\styles.css" />
     <Content Include="ApplicationInsights.config">
@@ -325,15 +323,14 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
+    <None Include="Properties\PublishProfiles\RennesEvents.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Public\Views\Shared\" />
+    <Folder Include="fonts\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

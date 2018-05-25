@@ -19,6 +19,7 @@ namespace EniEvents.Areas.Admin.Controllers
 
         private EventRepository repoEvent;
         private IRepository<Thema> repoThema;
+        private IRepository<Picture> repoPicture;
 
         Context Context = new Context();
 
@@ -26,6 +27,7 @@ namespace EniEvents.Areas.Admin.Controllers
         {
             repoEvent = new EventRepository(Context);
             repoThema = new GenericRepository<Thema>(Context);
+            repoPicture = new GenericRepository<Picture>(Context);
         }
 
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
@@ -57,23 +59,28 @@ namespace EniEvents.Areas.Admin.Controllers
             {
                 case "title_desc":
                     events = events.OrderByDescending(e => e.Title);
+
                     break;
                 case "Date":
                     events = events.OrderBy(e => e.Date);
+
                     break;
                 case "date_desc":
                     events = events.OrderByDescending(e => e.Date);
+
                     break;
                 case "thema_desc":
                     events = events.OrderByDescending(e => e.Thema.Title);
+
                     break;
                 default:
                     events = events.OrderBy(e => e.Title);
+
                     break;
 
             }
 
-            int pageSize = 3;
+            int pageSize = 10;
             int pageNumber = (page ?? 1);
             return View(events.ToPagedList(pageNumber, pageSize));
         }
@@ -200,24 +207,21 @@ namespace EniEvents.Areas.Admin.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(Event ev)
+        public ActionResult Delete(Event ev)
         {
             try
             {
 
-                var pictures = from p in Context.Pictures select p;
-
-                foreach (Picture p in pictures)
+                var pictures = repoEvent.GetSet().Where(e => e.Id == ev.Id).Include(e => e.Pictures).First().Pictures;
+                foreach(Picture p in pictures)
                 {
-                    if (p.Id == ev.Id)
-                    {
-
-                        Context.Pictures.Remove(p);
-
-                    }
+                    var FilePath = Path.Combine(Server.MapPath("~/Content/media/img/") + p.FileName);
+                    System.IO.File.Delete(FilePath);
                 }
-
+                Context.Pictures.RemoveRange(pictures);
+                Context.SaveChanges();
                 repoEvent.Delete(ev.Id);
+                
 
                 return RedirectToAction("Index");
             }

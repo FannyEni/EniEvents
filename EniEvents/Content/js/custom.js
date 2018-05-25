@@ -163,7 +163,7 @@ var iconBase = '/Content/img/markers/';
                    });
 
                    $('#getParkListBtn').click(function () {
-                       $('#eventParkList').html('<div class="col spinner"><i class="material-icons" style="vertical-align:middle">hourglass_empty</i> Recherche en cours ... Veuillez patienter.</div>');
+                       $('#eventParkList').html('<div class="col align-center grey-text text-darken-1"><i class="material-icons rotating" style="vertical-align:middle">hourglass_empty</i> Recherche en cours ... Veuillez patienter.</div>');
                        var startAddress = $('#userAddress').val();
                        var eventId = $('#eventId').text();
                        $.ajax({

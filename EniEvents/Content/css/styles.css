@@ -223,10 +223,17 @@ nav {
 }
 
 .event--pictures {
+    display: block;
+    float: none;
+    width: 100%;
+    box-sizing: border-box; 
+    min-height: 80px;
+    padding-left: 70px;
     overflow: hidden;
 }
 
 .event--picture {
+    float: left;
     height: 80px;
     width: 80px;    
     background-size: cover;
@@ -239,6 +246,7 @@ nav {
     opacity: .5;
     transition: all 300ms;
 }
+
 
 .event--picture:hover,
 .event--picture.selected  {
@@ -275,6 +283,11 @@ nav {
     margin-top: 30px;
 }
 
+.event--pictures span {
+    position: absolute;
+    left: 25px;
+    font-weight: bold;
+}
 .event--description span,
 .event--date span,
 .event--place span {
@@ -286,7 +299,7 @@ nav {
 .event--thema {
     position: absolute;
     display: inline-block;
-    padding: 2px 4px;
+    padding: 2px 7px;
     color: #fff;
     font-family: Roboto;
     font-size: 1.4rem;
@@ -325,6 +338,7 @@ nav {
     text-align: center;
     color: #fff;
     background: rgb(46, 65, 173);
+    font-weight: 900;
 }
 
 .form-event--picture {
@@ -391,8 +405,9 @@ nav {
 
 .park--road {
     position: relative;
-    height: 20px;
+    height: 28px;
     margin-bottom: 5px;
+    overflow: hidden;
 }
 
 
@@ -401,45 +416,56 @@ nav {
     position: absolute;
     display: block;
     width: 100%;
-    bottom: 8px;
+    bottom: 14px;
     height: 0px;
     border-top: 1px dashed #ccc;
 }
 
-.park--road div,
+.park--road > div,
+.park--road > i {
+    display: inline-block;
+    vertical-align: middle;
+    height: 28px;
+    min-width: 28px;
+    padding: 2px;
+    background-color:rgb(237, 235, 230);
+}
+
 .park--road i {
     display: inline-block;
     vertical-align: middle;
-    background: rgb(237, 235, 230);
-    min-height: 20px;
-    min-width: 20px;
 }
 
 .park--start-marker {
     position: absolute;
     left: 0;
+    color: #fff;
+    background-color: #e65100 !important;
 }
 
 .park--start-distance-first {
     position: absolute;
-    left: 25%;
+    left: 22%;
     padding: 0 4px;
 }
 .park--start-distance-second {
     position: absolute;
-    right: 25%;
+    right: 20%;
     padding: 0 4px;
 }
 
 .park--park-marker {
     position: absolute;
     left: 50%;
+    color: #fff;
+    background-color: rgb(46, 65, 173) !important;
 }
-
 
 .park--event-marker {
     position: absolute;
     right: 0;
+    color: #fff;
+    background-color: rgb(50, 29, 71) !important;
 }
 
 .park--name {
@@ -492,4 +518,52 @@ h2 {
 
 .btn-wide {
     width: 100%;
+}
+
+.user-address-wrapper {
+    position: relative;
+}
+
+.user-address-wrapper input[type="text"] {
+    display: block;
+    float: none;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgba(255,255,255,.9);
+    border-radius: 2px;
+    padding: 15px 60px 15px 8px;
+    height: auto;
+    border-bottom-width: 0 !important;
+}
+
+.user-address-wrapper button {
+    position: absolute;
+    right: 17px;
+    top: 6px;
+    box-shadow: none !important;
+}
+
+.btn {    
+    box-shadow: none !important;
+    border-radius: 0 !important;
+}
+
+.pagination, 
+.pagination * {
+    border-width: 0 !important;
+    border-radius: 0 !important;
+}
+
+.rotating {
+    transform-origin: 50% 50%;
+    -webkit-animation: rotating 2s linear infinite;
+}
+ 
+@-webkit-keyframes rotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
 }

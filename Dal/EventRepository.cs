@@ -46,7 +46,7 @@ namespace Dal
 
             switch (period)
             {
-                case (int) PeriodEnum.Today:
+                case (int)PeriodEnum.Today:
                     maxDate = new DateTime(maxDate.Year, maxDate.Month, maxDate.Day, h, m, s);
                     break;
                 case (int)PeriodEnum.NextSevenDays:
@@ -64,11 +64,11 @@ namespace Dal
             DateTime today = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 0, 0, 0);
             if (themaId > 0)
             {
-                ex = ev => ev.Thema.Id == themaId && ev.Date != null && DateTime.Compare((DateTime) ev.Date, maxDate) <= 0 && DateTime.Compare((DateTime)ev.Date, today) >= 0;
+                ex = ev => ev.Thema.Id == themaId && ev.Date != null && DateTime.Compare((DateTime)ev.Date, maxDate) <= 0 && DateTime.Compare((DateTime)ev.Date, today) >= 0;
             }
             else
             {
-                ex = ev => (ev.Date != null && DateTime.Compare((DateTime) ev.Date, maxDate) <= 0 && DateTime.Compare((DateTime)ev.Date, today) >= 0);
+                ex = ev => (ev.Date != null && DateTime.Compare((DateTime)ev.Date, maxDate) <= 0 && DateTime.Compare((DateTime)ev.Date, today) >= 0);
             }
             IQueryable<Event> eventsQuery = set.Where(ex);
 

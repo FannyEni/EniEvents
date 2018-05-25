@@ -73,7 +73,7 @@ namespace EniEvents.Areas.Public.Controllers
             Event ev = repoEvent.GetById((int)id);
             if (ev == null)
             {
-                return "<div class=\"no-result\">Aucun parking trouvé</div>";
+                return "<div class=\"error\">Oups ! Une erreur est survenue.</div>";
             }
 
             // Get free parks.
@@ -102,17 +102,24 @@ namespace EniEvents.Areas.Public.Controllers
                 }
                 catch (WebException e)
                 {
-                    wsStatus = false;
+                    return "<div class=\"error\">Oups ! Une erreur est survenue.</div>";
                 }
             }
 
             if (wsStatus)
             {
-                JObject gmapJsonObj = JObject.Parse(gmapJson);
-                JToken gmapRowTkn = gmapJsonObj["results"].First;
-                JToken gmapElementTkn = gmapRowTkn["geometry"].SelectToken("location");
-                startAddressLat = ((JObject)gmapElementTkn).GetValue("lat").Value<double>();
-                startAddressLong = ((JObject)gmapElementTkn).GetValue("lng").Value<double>();
+                try
+                {
+                    JObject gmapJsonObj = JObject.Parse(gmapJson);
+                    JToken gmapRowTkn = gmapJsonObj["results"].First;
+                    JToken gmapElementTkn = gmapRowTkn["geometry"].SelectToken("location");
+                    startAddressLat = ((JObject)gmapElementTkn).GetValue("lat").Value<double>();
+                    startAddressLong = ((JObject)gmapElementTkn).GetValue("lng").Value<double>();
+                }
+                catch (WebException e)
+                {
+                    return "<div class=\"error\">Oups ! Une erreur est survenue.</div>";
+                }
             }
 
 
@@ -124,9 +131,9 @@ namespace EniEvents.Areas.Public.Controllers
                 {
                     parksJson = wc.DownloadString(PARKING_LIST_API_URL);
                 }
-                catch (WebException e)
+                catch (Exception e)
                 {
-                    wsStatus = false;
+                    return "<div class=\"error\">Oups ! Une erreur est survenue.</div>";
                 }
             }
 
@@ -199,9 +206,8 @@ namespace EniEvents.Areas.Public.Controllers
                     }
                     catch (WebException e)
                     {
-                        wsStatus = false;
+                        return "<div class=\"error\">Oups ! Une erreur est survenue.</div>";
                     }
-
                 }
 
                 if (wsStatus)
@@ -231,20 +237,27 @@ namespace EniEvents.Areas.Public.Controllers
                     }
                     catch (WebException e)
                     {
-                        wsStatus = false;
+                        return "<div class=\"error\">Oups ! Une erreur est survenue.</div>";
                     }
 
                 }
 
                 if (wsStatus)
                 {
-                    JObject gmapJsonObj = JObject.Parse(gmapJson);
-                    JToken gmapRowTkn = gmapJsonObj["rows"].First;
-                    JToken gmapElementTkn = gmapRowTkn["elements"].First;
-                    JToken gmapDistanceTkn = gmapElementTkn.SelectToken("distance");
-                    var distance = ((JObject)gmapDistanceTkn).GetValue("value").Value<int>();
+                    try
+                    {
+                        JObject gmapJsonObj = JObject.Parse(gmapJson);
+                        JToken gmapRowTkn = gmapJsonObj["rows"].First;
+                        JToken gmapElementTkn = gmapRowTkn["elements"].First;
+                        JToken gmapDistanceTkn = gmapElementTkn.SelectToken("distance");
+                        var distance = ((JObject)gmapDistanceTkn).GetValue("value").Value<int>();
 
-                    park.DistanceToStart = distance;
+                        park.DistanceToStart = distance;
+                    }
+                    catch (Exception e)
+                    {
+                        return "<div class=\"error\">Oups ! Une erreur est survenue.</div>";
+                    }
                 }
             }
 
@@ -269,6 +282,7 @@ namespace EniEvents.Areas.Public.Controllers
                 view.Render(ctx, sw);
                 result = sw.ToString();
             }
+
             return result;
         }
     }
